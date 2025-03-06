@@ -1,0 +1,34 @@
+{
+    "name": "regur/lmvc-database-migration",
+    "description": "A lightweight migration system for PHP applications.",
+    "type": "library",
+    "require": {
+        "php": ">=7.4",
+        "vlucas/phpdotenv": "^5.5",
+        "symfony/console": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Regur\\LMVC\\Framework\\Database\\": "src/Database",
+            "Regur\\LMVC\\Framework\\Cli\\": "src/Cli/Core",
+            "Regur\\LMVC\\Framework\\Bin\\": "bin"
+        }
+    },
+    "bin": [
+        "bin/migration-command"
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "@php bin/command install"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Ravi Majithiya",
+            "email": "ravi.majithiya@regur.net",
+            "homepage": "https://www.regur.net",
+            "role": "Backend Developer"
+        }
+    ],
+    "license": "MIT"
+}

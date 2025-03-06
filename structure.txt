@@ -1,0 +1,14 @@
+my-migration-package/
+│── src/
+│   ├── Database/
+│   │   ├── Core/               # Core migration classes
+│   │   │   ├── Migration.php
+│   │   │   ├── Schema.php
+│   │   │   ├── Blueprint.php               
+│   │   │   ├── DB.php
+│   │   ├── Migrations/         # Auto-generated migrations
+│   ├── Bootstrap.php           # Main bootstrap file
+│── bin/
+│   ├── command       # CLI command file
+│── composer.json
+│── README.md
