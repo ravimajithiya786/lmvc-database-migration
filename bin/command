@@ -5,6 +5,7 @@ namespace Regur\LMVC\Framework\Bin;
 use Regur\LMVC\Framework\Database\Bootstrap;
 use Dotenv\Dotenv;
 
+
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 

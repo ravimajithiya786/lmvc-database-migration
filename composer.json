@@ -27,7 +27,9 @@
         "post-install-cmd": [
             "@php bin/command install"
         ],
-        "test": "vendor/bin/phpunit"
+        "post-autoload-dump": [
+            "Regur\\LMVC\\Framework\\Bin\\Install::copyCommand"
+        ]
     },
     "authors": [
         {
