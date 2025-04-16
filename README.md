@@ -32,6 +32,30 @@ To make it accessible from the root directory, create a symlink:
 ln -s vendor/bin/command command
 ```
 
+or else make one file at root directory commmand.php (the .env file is also needed for database credentials)
+
+```bash
+
+namespace Regur\LMVC\Framework\Bin;
+
+use Regur\LMVC\Framework\Database\Bootstrap;
+use Dotenv\Dotenv;
+
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$dbcred = [
+    'host' => $_ENV['DB_HOST'],
+    'database' => $_ENV['DB_NAME'],
+    'username' => $_ENV['DB_UNAME'],
+    'password' => $_ENV['DB_PWD']
+];
+
+```
+
+Bootstrap::init($dbcred);
+
 Now you can run:
 
 ```bash
