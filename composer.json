@@ -4,7 +4,6 @@
     "type": "library",
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "version": "1.0.0",
     "require": {
         "php": ">=7.4",
         "vlucas/phpdotenv": "^5.5",
@@ -28,7 +27,7 @@
             "@php bin/command install"
         ],
         "post-autoload-dump": [
-            "Regur\\LMVC\\Framework\\Bin\\Install::copyCommand"
+            "Regur\\LMVC\\Framework\\Init\\Install::copyCommand"
         ]
     },
     "authors": [

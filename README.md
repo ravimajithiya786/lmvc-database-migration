@@ -17,7 +17,7 @@ A simple database migration package for PHP applications, inspired by Laravel's 
 Install via Composer:
 
 ```bash
-composer require regur/
+composer require regur/lmvc-database-migration
 ```
 
 After installation, the CLI command will be available at:
