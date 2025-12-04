@@ -2,8 +2,10 @@
 
 namespace Regur\LMVC\Framework\Bin;
 
+require __DIR__ . '/../vendor/autoload.php';
+
 use Regur\LMVC\Framework\Database\Bootstrap;
-use Dotenv\Dotenv;
+use Regur\LMVC\Framework\Libs\Dotenv;
 
 
 $dotenv = Dotenv::createImmutable(__DIR__);
