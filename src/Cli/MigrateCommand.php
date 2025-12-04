@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Regur\LMVC\Framework\Database\Core\{DB};
 
 class MigrateCommand extends Command
 {
@@ -32,17 +33,24 @@ class MigrateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        require_once __DIR__ . '/../database/core/Migration.php';
-        require_once __DIR__ . '/../database/core/Schema.php';
-        require_once __DIR__ . '/../database/core/DB.php';
 
-        // Geet connection object
+        // // Get DB instance
+        // $db = new DB([
+        //     'host' =>  $_ENV['DB_HOST'],  
+        //     'database' => $_ENV['DB_NAME'],  
+        //     'username' =>  $_ENV['DB_UNAME'], 
+        //     'password' => $_ENV['DB_PWD']  
+        // ]);
+
+        // // Get connection instance
+        // $pdo = $db->getConnection();
+
         $pdo = $this->pdo;
 
         // Ensure the migrations table exists
         $this->ensureMigrationsTable($pdo);
 
-        $migrationsPath = __DIR__ . '/../database/migrations/';
+        $migrationsPath = __DIR__ . '/../../bin/database/migrations/';
         $migrations = glob($migrationsPath . '*.php');
 
         if ($input->getOption('up')) {
@@ -121,21 +129,26 @@ class MigrateCommand extends Command
             }
 
             $migration->up();
+
+            // Record it in migrations table
             $nextBatch = $this->getLastBatchNumber($pdo) + 1;
             $this->recordMigration($pdo, $className, $nextBatch);
             $output->writeln("<info>Migration executed:</info> $className");
         }
     }
 
+
     private function ensureMigrationsTable($pdo)
     {
+
         $pdo->exec("
             CREATE TABLE IF NOT EXISTS migrations (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 migrationName VARCHAR(255) NOT NULL,
                 batch INT NOT NULL DEFAULT 1,
                 createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                joinedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ");
     }

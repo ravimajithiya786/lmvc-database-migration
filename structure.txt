@@ -6,9 +6,9 @@ my-migration-package/
 │   │   │   ├── Schema.php
 │   │   │   ├── Blueprint.php               
 │   │   │   ├── DB.php
-│   │   ├── Migrations/         # Auto-generated migrations
 │   ├── Bootstrap.php           # Main bootstrap file
 │── bin/
 │   ├── command       # CLI command file
+|   ├── Migrations/         # Auto-generated migrations
 │── composer.json
 │── README.md

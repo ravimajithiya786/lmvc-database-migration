@@ -3,7 +3,7 @@ namespace Regur\LMVC\Framework\Database\Core;
 
 class DB
 {
-    private $pdo;
+    private static ?\PDO $pdo = null;
 
     /**
      * Constructor to initialize the PDO connection.
@@ -12,13 +12,15 @@ class DB
      */
     public function __construct(array $config)
     {
-        $this->instantiate(
-            $config['host'],
-            $config['database'],
-            $config['username'],
-            $config['password'],
-            $config['charset'] ?? 'utf8mb4'
-        );
+        if (self::$pdo === null) {
+            $this->instantiate(
+                $config['host'],
+                $config['database'],
+                $config['username'],
+                $config['password'],
+                $config['charset'] ?? 'utf8mb4'
+            );
+        }
     }
 
     /**
@@ -34,7 +36,7 @@ class DB
     {
         $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
         try {
-            $this->pdo = new \PDO(
+            self::$pdo = new \PDO(
                 $dsn,
                 $username,
                 $password,
@@ -45,7 +47,7 @@ class DB
                 ]
             );
         } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+            throw new \PDOException("DB Connection failed: " . $e->getMessage(), (int)$e->getCode());
         }
     }
 
@@ -54,8 +56,8 @@ class DB
      *
      * @return \PDO The PDO connection instance.
      */
-    public function getConnection()
+    public function getConnection(): \PDO
     {
-        return $this->pdo;
+        return self::$pdo;
     }
 }

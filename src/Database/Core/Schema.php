@@ -21,6 +21,15 @@ class Schema
         $query = $blueprint->toSql();
         self::execute($query);
     }
+    
+    public static function table(string $table, callable $callback)
+    {
+        $blueprint = new Blueprint($table);
+        $callback($blueprint);
+
+        $query = "ALTER TABLE `$table` " . $blueprint->toAlterSql();
+        self::execute($query);
+    }
 
     public static function dropIfExists(string $table)
     {
