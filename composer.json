@@ -14,7 +14,7 @@
     "autoload": {
         "psr-4": {
             "Regur\\LMVC\\Framework\\Database\\": "src/Database",
-            "Regur\\LMVC\\Framework\\Cli\\": "src/Cli/Core",
+            "Regur\\LMVC\\Framework\\Cli\\": "src/Cli",
             "Regur\\LMVC\\Framework\\Bin\\": "bin",
             "Regur\\LMVC\\Framework\\Libs\\": "src/Libs"
         }

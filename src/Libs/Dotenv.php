@@ -27,7 +27,7 @@ class Dotenv
         $file = $this->path . DIRECTORY_SEPARATOR . '.env';
 
         if (!file_exists($file)) {
-            throw new RuntimeException(".env file not found at: {$file}");
+            throw new \RuntimeException(".env file not found at: {$file}");
         }
 
         $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
