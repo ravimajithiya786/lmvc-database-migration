@@ -13,7 +13,7 @@ $dotenv->load();
 
 $dbcred = [
     'driver'=> $_ENV['DB_DRIVER'],
-    'host' => $_ENV['DB_HOST'],
+    'host' => $_ENV['DB_HOST_WINDOWS'],
     'database' => $_ENV['DB_NAME'],
     'username' => $_ENV['DB_UNAME'],
     'password' => $_ENV['DB_PWD'],
