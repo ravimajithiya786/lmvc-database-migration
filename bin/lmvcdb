@@ -12,6 +12,7 @@ $dotenv = Dotenv::createImmutable(getcwd());
 $dotenv->load();
 
 $dbcred = [
+    'host' => $_ENV['DB_HOST'],
     'driver'=> $_ENV['DB_DRIVER'],
     'database' => $_ENV['DB_NAME'],
     'username' => $_ENV['DB_UNAME'],
