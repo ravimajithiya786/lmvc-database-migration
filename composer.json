@@ -2,7 +2,7 @@
     "name": "regur/lmvc-database-migration",
     "description": "A lightweight migration system for PHP applications.",
     "type": "library",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php": ">=7.4",
