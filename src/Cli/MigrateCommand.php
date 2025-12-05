@@ -7,7 +7,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Regur\LMVC\Framework\Database\Core\{DB};
 
 class MigrateCommand extends Command
 {
@@ -34,23 +33,14 @@ class MigrateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
-        // // Get DB instance
-        // $db = new DB([
-        //     'host' =>  $_ENV['DB_HOST'],  
-        //     'database' => $_ENV['DB_NAME'],  
-        //     'username' =>  $_ENV['DB_UNAME'], 
-        //     'password' => $_ENV['DB_PWD']  
-        // ]);
 
-        // // Get connection instance
-        // $pdo = $db->getConnection();
-
+        //Get connection instance
         $pdo = $this->pdo;
 
         // Ensure the migrations table exists
         $this->ensureMigrationsTable($pdo);
 
-        $migrationsPath = __DIR__ . '/../../bin/database/migrations/';
+        $migrationsPath = dirname(__DIR__, 5).'/database/migrations/';
         $migrations = glob($migrationsPath . '*.php');
 
         if ($input->getOption('up')) {
@@ -147,8 +137,7 @@ class MigrateCommand extends Command
                 migrationName VARCHAR(255) NOT NULL,
                 batch INT NOT NULL DEFAULT 1,
                 createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                joinedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )
         ");
     }
