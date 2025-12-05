@@ -23,7 +23,7 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "Regur\\LMVC\\Framework\\Database\\Init\\Install::copyCommand"
+            "@php bin/command install"
         ],
         "post-autoload-dump": [
             "Regur\\LMVC\\Framework\\Database\\Init\\Install::copyCommand"

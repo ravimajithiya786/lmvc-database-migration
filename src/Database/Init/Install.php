@@ -15,7 +15,7 @@ class Install
         $targetPath = getcwd() . '/../lmvcdb';
         $log[] = microtime(true) . ' targetPath: ' . $targetPath;
 
-        $sourcePath = __DIR__ . '/../../bin/command';
+        $sourcePath = __DIR__ . '/../../bin/lmvcdb';
         $log[] = microtime(true) . ' sourcePath: ' . $sourcePath;
 
         // Create directory if missing
@@ -29,12 +29,12 @@ class Install
 
         // Copy command file
         if (!copy($sourcePath, $targetPath)) {
-            $log[] = microtime(true) . " Failed to copy command to database folder";
+            $log[] = microtime(true) . " Failed to copy lmvcdb ".$targetPath;
         } else {
             if (chmod($targetPath, 0755)) {
-                $log[] = microtime(true) . " command copied to .<current_working_direcorty>/lmvcdb";
+                $log[] = microtime(true) . " command copied to ".$targetPath;
             } else {
-                $log[] = microtime(true) . " Failed to set permissions for command";
+                $log[] = microtime(true) . " Failed to set permissions for lmvcdb";
             }
         }
 
