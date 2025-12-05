@@ -21,7 +21,7 @@
         }
     },
     "bin": [
-        "bin/lmvcdb"
+        "bin/command"
     ],
     "scripts": {
         "post-install-cmd": [
