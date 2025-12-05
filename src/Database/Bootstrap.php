@@ -3,7 +3,7 @@
 namespace Regur\LMVC\Framework\Database;
 
 use Symfony\Component\Console\Application;
-use Regur\LMVC\Framework\Cli\{MakeMigrationCommand, MigrateCommand};
+use Regur\LMVC\Framework\Cli\{MakeMigrationCommand, MigrateCommand, MakeRawMigrationCommand};
 use Regur\LMVC\Framework\Database\Core\{DB, Schema};
 
 class Bootstrap
@@ -30,6 +30,7 @@ class Bootstrap
 
         // Register commands
         $application->add(new MakeMigrationCommand());
+        $application->add(new MakeRawMigrationCommand());
         $application->add(new MigrateCommand($connection));
 
         // Run CLI application
