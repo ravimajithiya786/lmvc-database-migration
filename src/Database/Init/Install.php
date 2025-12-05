@@ -1,6 +1,6 @@
 <?php
 
-namespace Regur\LMVC\Framework\Init;
+namespace Regur\LMVC\Framework\Database\Init;
 
 class Install
 {
@@ -12,7 +12,7 @@ class Install
         // Add timestamp for the log start
         $log[] = "========== Install Started at " . date('Y-m-d H:i:s') . " ==========";
 
-        $targetPath = getcwd() . '/../database/command';
+        $targetPath = getcwd() . '/../lmvcdb';
         $log[] = microtime(true) . ' targetPath: ' . $targetPath;
 
         $sourcePath = __DIR__ . '/../../bin/command';
@@ -32,14 +32,14 @@ class Install
             $log[] = microtime(true) . " Failed to copy command to database folder";
         } else {
             if (chmod($targetPath, 0755)) {
-                $log[] = microtime(true) . " command copied to ./database/command";
+                $log[] = microtime(true) . " command copied to .<current_working_direcorty>/lmvcdb";
             } else {
                 $log[] = microtime(true) . " Failed to set permissions for command";
             }
         }
 
         // Save log inside bin/
-        $logPath = __DIR__ . '/../../bin/install.log';
+        $logPath = __DIR__ . '/../../bin/database/install.log';
         file_put_contents($logPath, implode("\n", $log) . "\n", FILE_APPEND);
 
         $log[] = "========== Install Ended ==========";

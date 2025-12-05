@@ -1,6 +1,6 @@
 <?php
 
-namespace Regur\LMVC\Framework\Libs;
+namespace Regur\LMVC\Framework\Database\Libs;
 
 class Dotenv
 {

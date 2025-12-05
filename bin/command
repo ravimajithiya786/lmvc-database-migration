@@ -2,13 +2,13 @@
 
 namespace Regur\LMVC\Framework\Bin;
 
-// require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Regur\LMVC\Framework\Database\Bootstrap;
-use Regur\LMVC\Framework\Libs\Dotenv;
+use Regur\LMVC\Framework\Database\Libs\Dotenv;
 
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv = Dotenv::createImmutable(__DIR__ );
 $dotenv->load();
 
 $dbcred = [
