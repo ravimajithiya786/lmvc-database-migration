@@ -16,11 +16,12 @@
             "Regur\\LMVC\\Framework\\Database\\": "src/Database",
             "Regur\\LMVC\\Framework\\Cli\\": "src/Cli",
             "Regur\\LMVC\\Framework\\Bin\\": "bin",
-            "Regur\\LMVC\\Framework\\Libs\\": "src/Libs"
+            "Regur\\LMVC\\Framework\\Libs\\": "src/Libs",
+            "Regur\\LMVC\\Framework\\Init\\": "src/Init"
         }
     },
     "bin": [
-        "bin/migration-command"
+        "bin/lmvcdb"
     ],
     "scripts": {
         "post-install-cmd": [
