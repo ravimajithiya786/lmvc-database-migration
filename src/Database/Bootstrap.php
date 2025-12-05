@@ -13,10 +13,12 @@ class Bootstrap
 
         // Get DB instance
         $db = new DB([
+            'driver' => $config['driver'],
             'host' =>  $config['host'],  
             'database' => $config['database'],  
             'username' =>  $config['username'], 
-            'password' => $config['password']  
+            'password' => $config['password'],
+            'port' => $config['port']
         ]);
 
         // Get connection instance

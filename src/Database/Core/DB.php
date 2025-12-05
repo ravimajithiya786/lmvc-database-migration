@@ -3,61 +3,91 @@ namespace Regur\LMVC\Framework\Database\Core;
 
 class DB
 {
-    private static ?\PDO $pdo = null;
+    private static $connection = null;
 
     /**
-     * Constructor to initialize the PDO connection.
+     * Constructor to initialize database connection based on driver
      *
-     * @param array $config Configuration array with keys: host, database, username, password, charset.
+     * @param array $config Required keys:
+     *   driver: mysql|pgsql|mariadb
+     *   host, database, username, password, charset, port (optional)
      */
     public function __construct(array $config)
     {
-        if (self::$pdo === null) {
-            $this->instantiate(
-                $config['host'],
-                $config['database'],
-                $config['username'],
-                $config['password'],
-                $config['charset'] ?? 'utf8mb4'
-            );
+        if (self::$connection === null) {
+            $driver = strtolower($config['driver'] ?? 'mysql');
+
+            switch ($driver) {
+                case 'mysql':
+                case 'mariadb':
+                    self::$connection = $this->connect_mysql_family($config);
+                    break;
+
+                case 'pgsql':
+                case 'postgres':
+                case 'postgresql':
+                    self::$connection = $this->connect_pgsql($config);
+                    break;
+
+                default:
+                    throw new \Exception("Unsupported PDO driver: " . $driver);
+            }
         }
     }
 
-    /**
-     * Initializes the PDO connection.
-     *
-     * @param string $host     Database host.
-     * @param string $dbname   Database name.
-     * @param string $username Database username.
-     * @param string $password Database password.
-     * @param string $charset  Character set for the connection.
-     */
-    private function instantiate($host, $dbname, $username, $password, $charset)
+    /* ============================================================
+        MYSQL / MARIADB (PDO)
+    ============================================================ */
+    private function connect_mysql_family($config)
     {
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
-        try {
-            self::$pdo = new \PDO(
-                $dsn,
-                $username,
-                $password,
-                [
-                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-                    \PDO::ATTR_EMULATE_PREPARES => false,
-                ]
-            );
-        } catch (\PDOException $e) {
-            throw new \PDOException("DB Connection failed: " . $e->getMessage(), (int)$e->getCode());
-        }
+        $host = $config['host'];
+        $dbname = $config['database'];
+        $charset = $config['charset'] ?? 'utf8mb4';
+        $port = $config['port'] ?? 3306;
+
+        $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset={$charset}";
+
+        return new \PDO(
+            $dsn,
+            $config['username'],
+            $config['password'],
+            [
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+                \PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
     }
 
-    /**
-     * Returns the PDO connection instance.
-     *
-     * @return \PDO The PDO connection instance.
-     */
-    public function getConnection(): \PDO
+    /* ============================================================
+        POSTGRESQL (PDO)
+    ============================================================ */
+    private function connect_pgsql($config)
     {
-        return self::$pdo;
+        $host = $config['host'];
+        $dbname = $config['database'];
+        $charset = $config['charset'] ?? 'utf8';
+        $port = $config['port'] ?? 5432;
+
+        // Ensure client encoding
+        $dsn = "pgsql:host={$host};port={$port};dbname={$dbname};options='--client_encoding={$charset}'";
+
+        return new \PDO(
+            $dsn,
+            $config['username'],
+            $config['password'],
+            [
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+            ]
+        );
+    }
+
+    /* ============================================================
+        GET CONNECTION
+    ============================================================ */
+    public function getConnection()
+    {
+        return self::$connection;
     }
 }

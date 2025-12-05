@@ -12,10 +12,12 @@ $dotenv = Dotenv::createImmutable(getcwd());
 $dotenv->load();
 
 $dbcred = [
+    'driver'=> $_ENV['DB_DRIVER'],
     'host' => $_ENV['DB_HOST'],
     'database' => $_ENV['DB_NAME'],
     'username' => $_ENV['DB_UNAME'],
-    'password' => $_ENV['DB_PWD']
+    'password' => $_ENV['DB_PWD'],
+    'port' => $_ENV['DB_PORT']
 ];
 
 Bootstrap::init($dbcred);
