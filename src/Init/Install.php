@@ -12,7 +12,7 @@ class Install
         // Add timestamp for the log start
         $log[] = "========== Install Started at " . date('Y-m-d H:i:s') . " ==========";
 
-        $targetPath = getcwd() . '/database/command';
+        $targetPath = getcwd() . '/../database/command';
         $log[] = microtime(true) . ' targetPath: ' . $targetPath;
 
         $sourcePath = __DIR__ . '/../../bin/command';
