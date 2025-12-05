@@ -93,7 +93,7 @@ class Schema
     }
 
     // Utility Methods
-    protected static function execute(string $query)
+    public static function execute(string $query)
     {
         if (!self::$pdo) {
             throw new \Exception("Database connection not set.");
