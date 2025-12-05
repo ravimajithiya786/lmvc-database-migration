@@ -10,7 +10,7 @@ class DB
      *
      * @param array $config Required keys:
      *   driver: mysql|pgsql|mariadb
-     *   host, database, username, password, charset, port (optional)
+     *   host, database, username, password, charset, port
      */
     public function __construct(array $config)
     {
@@ -45,9 +45,12 @@ class DB
         $charset = $config['charset'] ?? 'utf8mb4';
         $port = $config['port'] ?? 3306;
 
-        $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset={$charset}";
+        // resolve docker hostname to IP
+        $resolvedHost = gethostbyname($host);
 
-        return new \PDO(
+        $dsn = "mysql:host={$resolvedHost};port={$port};dbname={$dbname};charset={$charset}";
+
+        $pdo =  new \PDO(
             $dsn,
             $config['username'],
             $config['password'],
@@ -57,6 +60,8 @@ class DB
                 \PDO::ATTR_EMULATE_PREPARES => false,
             ]
         );
+
+        return $pdo;
     }
 
     /* ============================================================
@@ -69,10 +74,13 @@ class DB
         $charset = $config['charset'] ?? 'utf8';
         $port = $config['port'] ?? 5432;
 
-        // Ensure client encoding
-        $dsn = "pgsql:host={$host};port={$port};dbname={$dbname};options='--client_encoding={$charset}'";
+        // resolve docker hostname to IP
+        $resolvedHost = gethostbyname($host);
 
-        return new \PDO(
+        // Ensure client encoding
+        $dsn = "pgsql:host={$resolvedHost};port={$port};dbname={$dbname};options='--client_encoding={$charset}'";
+
+        $pdo = new \PDO(
             $dsn,
             $config['username'],
             $config['password'],
@@ -81,6 +89,8 @@ class DB
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
             ]
         );
+
+        return $pdo;
     }
 
     /* ============================================================
