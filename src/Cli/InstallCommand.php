@@ -22,7 +22,7 @@ class InstallCommand extends Command
 
         // Path where lmvcdb should be installed in the project
         $projectRoot = getcwd();
-        $targetPath  = $projectRoot . '/Cli/lmvcdb';
+        $targetPath  = $projectRoot . '/cli/lmvcdb';
 
         // Source lmvcdb script inside vendor
         $sourcePath  = __DIR__ . '/../../bin/lmvcdb';
