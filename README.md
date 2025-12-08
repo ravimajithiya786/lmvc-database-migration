@@ -37,8 +37,6 @@ below of lmvc file (same like atrisan file)
 namespace Regur\LMVC\Framework\Bin;
 
 require './vendor/autoload.php';
-// require dirname(__DIR__, 3) . '/autoload.php';
-// require dirname(__DIR__, 1) . '/vendor/autoload.php';
 
 use Regur\LMVC\Framework\Database\Bootstrap;
 use Regur\LMVC\Framework\Database\Libs\Dotenv;
@@ -155,7 +153,7 @@ Regur\LMVC\Framework\Database\Bootstrap::init([
 For docker you need to run commands under docker container 
 
 ```bash
-php docker exec -it pinlocal "your desired command"
+docker exec -it pinlocal "your desired command"
 ```
 
 ---
