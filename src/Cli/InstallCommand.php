@@ -23,13 +23,14 @@ class InstallCommand extends Command
         // Path where lmvcdb should be installed in the project
         $projectRoot = getcwd();
         $targetPath  = $projectRoot . '/lmvcdb';
+        chmod($targetPath, 0755);
 
         // Source lmvcdb script inside vendor
         $sourcePath  = __DIR__ . '/../../bin/lmvcdb';
 
-        $log[] = microtime(true) . " projectRoot: $projectRoot";
-        $log[] = microtime(true) . " sourcePath: $sourcePath";
-        $log[] = microtime(true) . " targetPath: $targetPath";
+        $log[] = microtime(true) . " Project Root: $projectRoot";
+        $log[] = microtime(true) . " Source Path: $sourcePath";
+        $log[] = microtime(true) . " Target Path: $targetPath";
 
         // Ensure source exists
         if (!file_exists($sourcePath)) {
