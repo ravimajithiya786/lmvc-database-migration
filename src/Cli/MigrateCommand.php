@@ -12,11 +12,12 @@ class MigrateCommand extends Command
 {
     protected static $defaultName = 'migrate';
     protected $pdo = null;
-    protected $migrationsPath = dirname(__DIR__, 5).'/database/migrations/';
+    protected $migrationsPath;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
+        $this->migrationsPath = dirname(__DIR__, 5) . '/database/migrations/';
         parent::__construct();
     }
 
