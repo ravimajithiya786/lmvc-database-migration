@@ -2,10 +2,9 @@
 
 namespace Regur\LMVC\Framework\Bin;
 
-echo __DIR__ . '/../../vendor/autoload.php';
-exit;
-
-require __DIR__ . '/../../vendor/autoload.php';
+require './vendor/autoload.php';
+// require dirname(__DIR__, 3) . '/autoload.php';
+// require dirname(__DIR__, 1) . '/vendor/autoload.php';
 
 use Regur\LMVC\Framework\Database\Bootstrap;
 use Regur\LMVC\Framework\Database\Libs\Dotenv;
