@@ -29,6 +29,15 @@ class MakeMigrationCommand extends Command
         // For create migrations, determine table name automatically
         $tableName = $this->generateTableName($name);
 
+         if (!$isAlter) {
+            $existing = glob("database/migrations/*create_{$tableName}_table.php");
+
+            if (!empty($existing)) {
+                $output->writeln("<error>Create migration already exists for table '{$tableName}'. Please choose another name.</error>");
+                return Command::FAILURE;
+            }
+        }
+
         $timestamp = date('Y_m_d_His');
         $fileName  = "database/migrations/{$timestamp}_{$name}.php";
 
