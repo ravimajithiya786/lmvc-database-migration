@@ -23,43 +23,48 @@ composer require regur/lmvc-database-migration
 After installation, the CLI command will be available at:
 
 ```bash
-php vendor/bin/command
+php lmvc
 ```
 
-To make it accessible from the root directory, create a symlink:
+Important - the .env file is also needed for database credentials
+
+below of lmvc file (same like atrisan file)
 
 ```bash
-ln -s vendor/bin/command command
-```
 
-or else make one file at root directory commmand.php (the .env file is also needed for database credentials)
-
-```bash
+<?php
 
 namespace Regur\LMVC\Framework\Bin;
 
+require './vendor/autoload.php';
+// require dirname(__DIR__, 3) . '/autoload.php';
+// require dirname(__DIR__, 1) . '/vendor/autoload.php';
+
 use Regur\LMVC\Framework\Database\Bootstrap;
-use Dotenv\Dotenv;
+use Regur\LMVC\Framework\Database\Libs\Dotenv;
 
-
-$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv::createImmutable(getcwd());
 $dotenv->load();
 
 $dbcred = [
     'host' => $_ENV['DB_HOST'],
+    'driver'=> $_ENV['DB_DRIVER'],
     'database' => $_ENV['DB_NAME'],
     'username' => $_ENV['DB_UNAME'],
-    'password' => $_ENV['DB_PWD']
+    'password' => $_ENV['DB_PWD'],
+    'port' => $_ENV['DB_PORT']
 ];
 
-```
-
 Bootstrap::init($dbcred);
+
+?>
+
+```
 
 Now you can run:
 
 ```bash
-php command migrate
+php lmvc migrate
 ```
 
 ---
@@ -68,37 +73,37 @@ php command migrate
 
 ### Create a New Migration
 ```bash
-php command make:migration create_users_table
+php lmvc make:migration create_users_table
 ```
-This will generate a migration file inside `Application/Database/Migrations`.
+This will generate a migration file inside `database/migrations`.
 
 ### Run Migrations
 ```bash
-php command migrate
+php lmvc migrate
 ```
 Applies all pending migrations.
 
 ### Fresh Migrations (Reset & Run All)
 ```bash
-php command migrate:fresh
+php lmvc migrate:fresh
 ```
 Drops all tables and runs migrations from scratch.
 
 ### Apply Pending Migrations
 ```bash
-php command migrate:up
+php lmvc migrate:up
 ```
 Runs the next batch of pending migrations.
 
 ### Rollback the Last Migration Batch
 ```bash
-php command migrate:down
+php lmvc migrate:down
 ```
 Rolls back the last executed migration batch.
 
 ### Refresh Migrations (Rollback & Reapply)
 ```bash
-php command migrate:refresh
+php lmvc migrate:refresh
 ```
 Rolls back all migrations and runs them again.
 
@@ -106,19 +111,27 @@ Rolls back all migrations and runs them again.
 
 ## 📂 Project Structure
 ```
-my-migration-package/
+lmvc-database-migration/
 │── src/
 │   ├── Database/
-│   │   ├── Core/               # Core migration classes
+│   │   ├── Core/                                # Core migration classes
 │   │   │   ├── Migration.php
 │   │   │   ├── Schema.php
 │   │   │   ├── Blueprint.php
 │   │   │   ├── DB.php
-│   │   ├── Migrations/         # Auto-generated migrations
-│   ├── Bootstrap.php           # Main bootstrap file
+│   │   ├── Libs/                                # Relevent custom libraries
+│   │   │   ├── Dotenv.php
+│   ├── Composer/
+│   │   ├── Installer.php                        # This will create a file lmvc at root of your project
+│   ├── Cli/                                     # This contains commands registered in symfony CLI
+│   │   ├── InstallCommand.php                   # php vendor/cli/lmvcdb install 
+│   │   ├── MakeMigrationCommand.php             # php lmvcdb make:migration <args>
+│   │   ├── MakeRawMigrationCommand.php          # php lmvcdb make:raw-migration <args>
+│   │   ├── MigrateCommand.php                   # php lmvcdb migrate <args>
+│   ├── Bootstrap.php                            # Main bootstrap file
 │── bin/
-│   ├── command                 # CLI command file
-│── composer.json
+│   ├── lmvc                                     # CLI command file
+│── composer.json                                # Composer JSON file (for versioning and maintaining relevent packages)
 │── README.md
 ```
 
@@ -126,18 +139,28 @@ my-migration-package/
 
 ## 🔧 Configuration
 
-Configure the database connection in `bin/command`:
+Configure the database connection in `lmvcdb`:
 
 ```php
 Regur\LMVC\Framework\Database\Bootstrap::init([
-    'host' => '127.0.0.1',
-    'database' => 'your_db',
-    'username' => 'root',
-    'password' => '',
+    'host' => $_ENV['DB_HOST'],
+    'driver'=> $_ENV['DB_DRIVER'],
+    'database' => $_ENV['DB_NAME'],
+    'username' => $_ENV['DB_UNAME'],
+    'password' => $_ENV['DB_PWD'],
+    'port' => $_ENV['DB_PORT']
 ]);
 ```
 
+For docker you need to run commands under docker container 
+
+```bash
+php docker exec -it pinlocal "your desired command"
+```
+
 ---
+
+
 
 ## 📜 License
 This package is open-source and available under the MIT License.
