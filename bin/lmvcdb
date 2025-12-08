@@ -2,7 +2,7 @@
 
 namespace Regur\LMVC\Framework\Bin;
 
-require '../vendor/autoload.php';
+require '/../vendor/autoload.php';
 
 use Regur\LMVC\Framework\Database\Bootstrap;
 use Regur\LMVC\Framework\Database\Libs\Dotenv;
