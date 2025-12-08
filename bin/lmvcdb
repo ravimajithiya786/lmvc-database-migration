@@ -2,6 +2,9 @@
 
 namespace Regur\LMVC\Framework\Bin;
 
+echo __DIR__ . '/../../vendor/autoload.php';
+exit;
+
 require __DIR__ . '/../../vendor/autoload.php';
 
 use Regur\LMVC\Framework\Database\Bootstrap;
