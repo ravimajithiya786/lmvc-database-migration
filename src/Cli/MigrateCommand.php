@@ -12,6 +12,7 @@ class MigrateCommand extends Command
 {
     protected static $defaultName = 'migrate';
     protected $pdo = null;
+    protected $migrationsPath = dirname(__DIR__, 5).'/database/migrations/';
 
     public function __construct($pdo)
     {
@@ -40,7 +41,7 @@ class MigrateCommand extends Command
         // Ensure the migrations table exists
         $this->ensureMigrationsTable($pdo);
 
-        $migrationsPath = dirname(__DIR__, 5).'/database/migrations/';
+        $migrationsPath = $this->migrationsPath;
         $migrations = glob($migrationsPath . '*.php');
 
         if ($input->getOption('up')) {
@@ -183,7 +184,8 @@ class MigrateCommand extends Command
     private function executeDownMigrations($migrations, $output)
     {
         foreach ($migrations as $migrationName) {
-            $migrationFile = __DIR__ . "/../database/migrations/{$migrationName}.php";
+            $migrationsPath = $this->migrationsPath;
+            $migrationFile = $migrationsPath."/{$migrationName}.php";
 
             if (file_exists($migrationFile)) {
                 require_once $migrationFile;

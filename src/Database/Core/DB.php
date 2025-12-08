@@ -20,7 +20,7 @@ class DB
             switch ($driver) {
                 case 'mysql':
                 case 'mariadb':
-                    self::$connection = $this->connect_mysql_family($config);
+                    self::$connection = $this->connect_mysql($config);
                     break;
 
                 case 'pgsql':
@@ -38,7 +38,7 @@ class DB
     /* ============================================================
         MYSQL / MARIADB (PDO)
     ============================================================ */
-    private function connect_mysql_family($config)
+    private function connect_mysql($config)
     {
         $host = $config['host'];
         $dbname = $config['database'];
