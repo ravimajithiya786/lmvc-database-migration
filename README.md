@@ -23,12 +23,12 @@ composer require regur/lmvc-database-migration
 After installation, the CLI command will be available at:
 
 ```bash
-php lmvc
+php lmvcdb
 ```
 
 Important - the .env file is also needed for database credentials
 
-below of lmvc file (same like atrisan file)
+below of lmvcdb file (same like atrisan file)
 
 ```bash
 
@@ -62,7 +62,7 @@ Bootstrap::init($dbcred);
 Now you can run:
 
 ```bash
-php lmvc migrate
+php lmvcdb migrate
 ```
 
 ---
@@ -71,37 +71,37 @@ php lmvc migrate
 
 ### Create a New Migration
 ```bash
-php lmvc make:migration create_users_table
+php lmvcdb make:migration create_users_table
 ```
 This will generate a migration file inside `database/migrations`.
 
 ### Run Migrations
 ```bash
-php lmvc migrate
+php lmvcdb migrate
 ```
 Applies all pending migrations.
 
 ### Fresh Migrations (Reset & Run All)
 ```bash
-php lmvc migrate:fresh
+php lmvcdb migrate:fresh
 ```
 Drops all tables and runs migrations from scratch.
 
 ### Apply Pending Migrations
 ```bash
-php lmvc migrate:up
+php lmvcdb migrate:up
 ```
 Runs the next batch of pending migrations.
 
 ### Rollback the Last Migration Batch
 ```bash
-php lmvc migrate:down
+php lmvcdb migrate:down
 ```
 Rolls back the last executed migration batch.
 
 ### Refresh Migrations (Rollback & Reapply)
 ```bash
-php lmvc migrate:refresh
+php lmvcdb migrate:refresh
 ```
 Rolls back all migrations and runs them again.
 
@@ -128,7 +128,7 @@ lmvc-database-migration/
 │   │   ├── MigrateCommand.php                   # php lmvcdb migrate <args>
 │   ├── Bootstrap.php                            # Main bootstrap file
 │── bin/
-│   ├── lmvc                                     # CLI command file
+│   ├── lmvcdb                                     # CLI command file
 │── composer.json                                # Composer JSON file (for versioning and maintaining relevent packages)
 │── README.md
 ```
@@ -157,7 +157,6 @@ docker exec -it pinlocal "your desired command"
 ```
 
 ---
-
 
 
 ## 📜 License
