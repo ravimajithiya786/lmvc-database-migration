@@ -68,13 +68,13 @@ class MigrateCommand extends Command
         }
 
         if ($input->getOption('fresh')) {
-            $output->writeln("<comment>Dropping all tables...</comment>");
+            $output->writeln("<comment>Dropping all tables..., Migrating all tables...</comment>");
             Schema::dropAllTables();
             $this->ensureMigrationsTable($pdo);
         }
 
         if ($input->getOption('refresh')) {
-            $output->writeln("<comment>Rolling back all migrations...</comment>");
+            $output->writeln("<comment>Database all tables refreshed</comment>");
             foreach (array_reverse($migrations) as $migrationFile) {
                 require_once $migrationFile;
                 $migration = require $migrationFile;
@@ -104,13 +104,18 @@ class MigrateCommand extends Command
 
             return Command::SUCCESS;
         }
-        $this->executeAllMigrations($migrations, $pdo, $output);
-        $output->writeln("<info>All migrations executed successfully.</info>");
+        $executedMigrationsCount = $this->executeAllMigrations($migrations, $pdo, $output);
+        if($executedMigrationsCount > 0){
+            $output->writeln("<info>All migrations executed successfully.</info>");
+        }else{
+            $output->writeln("<comment>No pending migrations found</comment>");
+        }
         return Command::SUCCESS;
     }
 
     private function executeAllMigrations($migrations, $pdo, $output)
     {
+        $executedMigrationsCount = 0;
         foreach ($migrations as $migrationFile) {
             require_once $migrationFile;
             $migration = require $migrationFile;
@@ -122,11 +127,15 @@ class MigrateCommand extends Command
 
             $migration->up();
 
+            // Count it
+            $executedMigrationsCount += 1;
+            
             // Record it in migrations table
             $nextBatch = $this->getLastBatchNumber($pdo) + 1;
             $this->recordMigration($pdo, $className, $nextBatch);
             $output->writeln("<info>Migration executed:</info> $className");
         }
+        return $executedMigrationsCount;
     }
 
 

@@ -25,6 +25,8 @@ function runMigrationTest(string $description, array $command)
     // ALSO log raw output (optional, comment out if not needed)
     Log::save("Output: $output");
 
+    sleep(1);
+
     expect($passed)->toBeTrue();
 }
 
@@ -40,7 +42,7 @@ beforeAll(function () {
         }
     }
 
-    $filename = 'migration_tests_' . date('d_m_Y_H_i_s') . '_' . uniqid();
+    $filename = 'lmvcdb_tests_makemigration__' . date('d_m_Y_H_i_s') . '_' . uniqid();
     Log::create($filename);
     Log::save("=== TEST SUITE STARTED ===");
 });
@@ -104,17 +106,17 @@ it('renames products table to items', function () {
     );
 });
 
-it('adds is_active column to users table', function () {
+it('adds out_of_stock column to items table', function () {
     runMigrationTest(
-        'adds is_active column to users table',
-        ['php', 'bin/lmvcdb', 'make:migration', 'add_is_active_to_users', '--table=users']
+        'adds out_of_stock column to items table',
+        ['php', 'bin/lmvcdb', 'make:migration', 'add_out_of_stock_to_items', '--table=items']
     );
 });
 
-it('drops is_verified column from users table', function () {
+it('drops out_of_stock column from items table', function () {
     runMigrationTest(
-        'drops is_verified column from users table',
-        ['php', 'bin/lmvcdb', 'make:migration', 'drop_is_verified_from_users', '--table=users']
+        'drops out_of_stock column from items table',
+        ['php', 'bin/lmvcdb', 'make:migration', 'drop_out_of_stock_from_items', '--table=items']
     );
 });
 
