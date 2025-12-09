@@ -128,7 +128,7 @@ lmvc-database-migration/
 │   │   ├── MigrateCommand.php                   # php lmvcdb migrate <args>
 │   ├── Bootstrap.php                            # Main bootstrap file
 │── bin/
-│   ├── lmvcdb                                     # CLI command file
+│   ├── lmvcdb                                   # CLI command file
 │── composer.json                                # Composer JSON file (for versioning and maintaining relevent packages)
 │── README.md
 ```
