@@ -59,7 +59,7 @@ PHP;
 
         file_put_contents($fileName, $template);
 
-        $output->writeln("<info>Raw SQL migration created:</info> $fileName");
+        $output->writeln("<info>Migration created:</info> $fileName");
 
         return Command::SUCCESS;
     }

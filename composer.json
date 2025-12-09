@@ -10,7 +10,8 @@
         "composer-plugin-api": "^2.0"
     },
     "require-dev": {
-        "composer/composer": "^2.8"
+        "composer/composer": "^2.8",
+        "pestphp/pest": "^1.23"
     },
     "autoload": {
         "psr-4": {
