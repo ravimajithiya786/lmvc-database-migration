@@ -25,6 +25,8 @@ class Log
 
         $timestamp = date('Y-m-d H:i:s');
 
+        $log = preg_replace('/\e\[[0-9;]*m/', '', $log);
+
         if (is_array($log)) {
             $log = implode("\n", $log);
         }
