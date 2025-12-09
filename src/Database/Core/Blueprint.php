@@ -133,6 +133,28 @@ class Blueprint
         return $this;
     }
 
+    public function array(string $column, string $format = 'json'): self
+    {
+        switch ($format) {
+            case 'serialize':
+                $type = "TEXT";       // serialized string
+                break;
+
+            case 'csv':
+                $type = "TEXT";       // comma separated values
+                break;
+
+            case 'json':
+            default:
+                $type = "JSON";       // native MySQL JSON
+                break;
+        }
+
+        $this->columns[] = "`$column` $type NOT NULL";
+
+        return $this;
+    }
+
     public function timestamps(): self
     {
         $this->columns[] = "`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP";
