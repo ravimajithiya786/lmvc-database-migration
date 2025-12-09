@@ -1,14 +1,21 @@
-my-migration-package/
+lmvc-database-migration/
 │── src/
 │   ├── Database/
-│   │   ├── Core/               # Core migration classes
+│   │   ├── Core/                                # Core migration classes
 │   │   │   ├── Migration.php
 │   │   │   ├── Schema.php
-│   │   │   ├── Blueprint.php               
+│   │   │   ├── Blueprint.php
 │   │   │   ├── DB.php
-│   ├── Bootstrap.php           # Main bootstrap file
+│   │   ├── Libs/                                # Relevent custom libraries
+│   │   │   ├── Dotenv.php
+│   ├── Composer/
+│   │   ├── Installer.php                        # This will create a file lmvc at root of your project
+│   ├── Cli/                                     # This contains commands registered in symfony CLI
+│   │   ├── InstallCommand.php                   # php vendor/cli/lmvcdb install 
+│   │   ├── MakeMigrationCommand.php             # php lmvcdb make:migration <args>
+│   │   ├── MakeRawMigrationCommand.php          # php lmvcdb make:raw-migration <args>
+│   │   ├── MigrateCommand.php                   # php lmvcdb migrate <args>
+│   ├── Bootstrap.php                            # Main bootstrap file
 │── bin/
-│   ├── command       # CLI command file
-|   ├── Migrations/         # Auto-generated migrations
-│── composer.json
-│── README.md
+│   ├── lmvcdb                                   # CLI command file
+│── composer.json                                # Composer JSON file (for versioning and maintaining relevent packages)
