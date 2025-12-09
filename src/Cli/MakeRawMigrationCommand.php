@@ -5,6 +5,7 @@ namespace Regur\LMVC\Framework\Cli;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class MakeRawMigrationCommand extends Command
@@ -15,19 +16,24 @@ class MakeRawMigrationCommand extends Command
     {
         $this
             ->setDescription('Create a new raw SQL migration file')
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the migration file');
+            ->addArgument('name', InputArgument::REQUIRED, 'The name of the migration file')
+            ->addOption(
+                'table',
+                't',
+                InputOption::VALUE_OPTIONAL,
+                'Table name to use inside migration SQL examples'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $name = $input->getArgument('name');
+        $name  = $input->getArgument('name');
+        $table = $input->getOption('table') ?: 'test';
 
         $timestamp = date('Y_m_d_His');
         $fileName  = "database/migrations/{$timestamp}_{$name}.php";
 
-        //
         // TEMPLATE
-        //
         $template = <<<PHP
 <?php
 
@@ -40,14 +46,14 @@ return new class extends Migration
     {
         // Write your raw SQL here
         // Example:
-        // Schema::execute("ALTER TABLE users ADD COLUMN age INT DEFAULT 0");
+        // Schema::execute("ALTER TABLE {$table} ADD COLUMN count INT DEFAULT 0");
     }
 
     public function down(): void
     {
         // Reverse your raw SQL here
         // Example:
-        // Schema::execute("ALTER TABLE users DROP COLUMN age");
+        // Schema::execute("ALTER TABLE {$table} DROP COLUMN count");
     }
 };
 PHP;

@@ -95,7 +95,7 @@ it('drops old_orders table', function () {
 it('creates raw migration', function () {
     runMigrationTest(
         'creates raw migration',
-        ['php', 'bin/lmvcdb', 'make:raw-migration', 'custom_raw_migration']
+        ['php', 'bin/lmvcdb', 'make:raw-migration', 'custom_raw_migration', '--table=products']
     );
 });
 
