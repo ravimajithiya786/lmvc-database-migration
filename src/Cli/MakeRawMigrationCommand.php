@@ -28,13 +28,34 @@ class MakeRawMigrationCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $name  = $input->getArgument('name');
-        $table = $input->getOption('table') ?: 'test';
+        $tableName = $input->getOption('table') ?: 'test';
 
         $timestamp = date('Y_m_d_His');
-        $fileName  = "database/migrations/{$timestamp}_{$name}.php";
+
+        $fileName = "{$timestamp}_{$name}";
+
+        $path  = getcwd() . "/database/migrations";
 
         // TEMPLATE
-        $template = <<<PHP
+        $template = $this->getTemplate($tableName);
+
+        // Ensure migrations directory exists
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = "{$path}/{$fileName}.php";
+
+        file_put_contents($file, $template);
+
+        $output->writeln("<info>Migration created:</info> $fileName");
+
+        return Command::SUCCESS;
+    }
+
+    private function getTemplate($tableName)
+    {
+                $template = <<<PHP
 <?php
 
 use Regur\LMVC\Framework\Database\Core\Migration;
@@ -46,27 +67,18 @@ return new class extends Migration
     {
         // Write your raw SQL here
         // Example:
-        // Schema::execute("ALTER TABLE {$table} ADD COLUMN count INT DEFAULT 0");
+        // Schema::execute("ALTER TABLE {$tableName} ADD COLUMN count INT DEFAULT 0");
     }
 
     public function down(): void
     {
         // Reverse your raw SQL here
         // Example:
-        // Schema::execute("ALTER TABLE {$table} DROP COLUMN count");
+        // Schema::execute("ALTER TABLE {$tableName} DROP COLUMN count");
     }
 };
 PHP;
 
-        // Ensure migrations directory exists
-        if (!is_dir('database/migrations')) {
-            mkdir('database/migrations', 0777, true);
-        }
-
-        file_put_contents($fileName, $template);
-
-        $output->writeln("<info>Migration created:</info> $fileName");
-
-        return Command::SUCCESS;
+        return $template;
     }
 }

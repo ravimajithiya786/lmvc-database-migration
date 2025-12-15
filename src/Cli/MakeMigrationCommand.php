@@ -40,18 +40,23 @@ class MakeMigrationCommand extends Command
         }
 
         $timestamp = date('Y_m_d_His');
-        $fileName  = "database/migrations/{$timestamp}_{$name}.php";
+
+        $fileName  = "{$timestamp}_{$name}";
+        
+        $path = getcwd() . "/database/migrations";
 
         // Select template based on parsed info
         $template = $this->buildTemplate($info);
 
         // Create folder if missing
-        if (!is_dir('database/migrations')) {
-            mkdir('database/migrations', 0777, true);
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
         }
 
+        $file = "{$path}/{$fileName}.php";
+
         // Save file
-        file_put_contents($fileName, $template);
+        file_put_contents($file, $template);
 
         $output->writeln("<info>Migration created:</info> $fileName");
 
