@@ -2,12 +2,20 @@ MIT License
 
 Copyright (c) 2025 ravimajithiya786
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This repository is licensed under the MIT License.
+
+While the license permits copying, modification, and redistribution of the
+software, direct write access to this repository is restricted.
+
+• Anyone may fork or copy this repository and work on it separately.
+• Modifications to this repository itself are permitted only with explicit
+  approval from the author.
+• Pull requests may be submitted, but acceptance is solely at the discretion
+  of the repository owner.
+
+Unauthorized direct changes to this repository are not allowed.
+
+Terms and Conditions :
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
