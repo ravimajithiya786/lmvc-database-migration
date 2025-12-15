@@ -46,23 +46,23 @@ return new class extends Seeder
 {
     public function run(): void
     {
-       /* Example - Suppose database having animal table with name type and created_at columns then this seeder can insert the data into that
+       /* Example - Suppose database having animal table with name type and createdAt columns then this seeder can insert the data into that
        /* Seeder::truncate('animals');
         Seeder::insert('animals',[
             [
                 'name' => 'Dog',
                 'type' => 'Mammal',
-                'created_at' => date('Y-m-d H:i:s'),
+                'createdAt' => date('Y-m-d H:i:s'),
             ],
             [
                 'name' => 'Cat',
                 'type' => 'Mammal',
-                'created_at' => date('Y-m-d H:i:s'),
+                'createdAt' => date('Y-m-d H:i:s'),
             ],
             [
                 'name' => 'Eagle',
                 'type' => 'Bird',
-                'created_at' => date('Y-m-d H:i:s'),
+                'createdAt' => date('Y-m-d H:i:s'),
             ],
         ]); */
     }

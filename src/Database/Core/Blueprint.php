@@ -157,8 +157,8 @@ class Blueprint
 
     public function timestamps(): self
     {
-        $this->columns[] = "`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP";
-        $this->columns[] = "`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP";
+        $this->columns[] = "`createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP";
+        $this->columns[] = "`updatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP";
         return $this;
     }
 
