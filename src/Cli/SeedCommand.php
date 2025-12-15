@@ -54,7 +54,11 @@ class SeedCommand extends Command
     protected function runAllSeeders(OutputInterface $output): int
     {
         $files = glob($this->seedersPath . '/*.php');
-        sort($files);
+
+        // Sort by file modification time (oldest → newest)
+        usort($files, function ($a, $b) {
+            return filemtime($a) <=> filemtime($b);
+        });
 
         foreach ($files as $file) {
             $this->runSeederFile($file, $output);
@@ -63,6 +67,7 @@ class SeedCommand extends Command
         $output->writeln('<info>Database seeding completed.</info>');
         return Command::SUCCESS;
     }
+
 
     /* ============================================================
         Run single seeder
