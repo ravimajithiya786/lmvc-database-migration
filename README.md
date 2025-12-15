@@ -113,15 +113,11 @@ php lmvcdb make:seeder UsersSeeder
 ```
 It will create new seeder
 
----
-
 ### Run all seeders
 ```bash
 php lmvcdb seed
 ```
 It will run all seeders at once
-
----
 
 ### Run specific seeder
 ```bash
