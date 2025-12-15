@@ -107,6 +107,30 @@ Rolls back all migrations and runs them again.
 
 ---
 
+### Make Seeder 
+```bash
+php lmvcdb make:seeder UsersSeeder
+```
+It will create new seeder
+
+---
+
+### Run all seeders
+```bash
+php lmvcdb seed
+```
+It will run all seeders at once
+
+---
+
+### Run specific seeder
+```bash
+php lmvcdb seed --class=UsersSeeder
+```
+It will run specific seeder 
+
+---
+
 ## 📂 Project Structure
 ```
 lmvc-database-migration/
