@@ -126,6 +126,8 @@ lmvc-database-migration/
 │   │   ├── MakeMigrationCommand.php             # php lmvcdb make:migration <args>
 │   │   ├── MakeRawMigrationCommand.php          # php lmvcdb make:raw-migration <args>
 │   │   ├── MigrateCommand.php                   # php lmvcdb migrate <args>
+│   │   ├── MakeSeederCommand.php                # php lmvcdb make:seeder <args>
+│   │   ├── SeedCommand.php                      # php lmvcdb seed <args>
 │   ├── Bootstrap.php                            # Main bootstrap file
 │── bin/
 │   ├── lmvcdb                                   # CLI command file
