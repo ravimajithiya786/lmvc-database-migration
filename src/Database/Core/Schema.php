@@ -63,29 +63,6 @@ class Schema
         self::execute("TRUNCATE TABLE `$table`");
     }
 
-    // Data Operations
-    public static function insert(string $table, array $data)
-    {
-        $columns = implode('`, `', array_keys($data));
-        $values = implode("', '", array_values($data));
-        self::execute("INSERT INTO `$table` (`$columns`) VALUES ('$values')");
-    }
-
-    public static function update(string $table, array $data, string $where)
-    {
-        $set = [];
-        foreach ($data as $column => $value) {
-            $set[] = "`$column` = '$value'";
-        }
-        $setClause = implode(', ', $set);
-        self::execute("UPDATE `$table` SET $setClause WHERE $where");
-    }
-
-    public static function delete(string $table, string $where)
-    {
-        self::execute("DELETE FROM `$table` WHERE $where");
-    }
-
     public static function copyTable(string $source, string $destination)
     {
         self::execute("CREATE TABLE `$destination` LIKE `$source`");

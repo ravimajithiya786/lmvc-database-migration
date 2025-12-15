@@ -9,7 +9,7 @@ class DB
      * Constructor to initialize database connection based on driver
      *
      * @param array $config Required keys:
-     *   driver: mysql|pgsql|mariadb
+     *   driver: mysql|mariadb|pgsql|postgres|postgresql
      *   host, database, username, password, charset, port
      */
     public function __construct(array $config)
