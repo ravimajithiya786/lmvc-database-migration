@@ -1,7 +1,26 @@
 {
     "name": "regur/lmvc-database-migration",
-    "description": "A lightweight migration system for PHP applications.",
+    "description": "A lightweight database migration system for LMVC-based PHP applications.",
     "type": "composer-plugin",
+    "keywords": [
+        "php",
+        "database",
+        "migration",
+        "lmvc",
+        "framework",
+        "cli",
+        "composer-plugin"
+    ],
+    "homepage": "https://github.com/regur/lmvc-database-migration",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ravi Majithiya",
+            "email": "ravi.majithiya@regur.net",
+            "homepage": "https://github.com/ravimajithiya786",
+            "role": "Developer"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
@@ -27,5 +46,8 @@
     "extra": {
         "class": "Regur\\LMVC\\Framework\\Composer\\Installer"
     },
-    "license": "MIT"
+    "support": {
+        "issues": "https://github.com/ravimajithiya786/lmvc-database-migration/issues",
+        "source": "https://github.com/ravimajithiya786/lmvc-database-migration"
+    }
 }
