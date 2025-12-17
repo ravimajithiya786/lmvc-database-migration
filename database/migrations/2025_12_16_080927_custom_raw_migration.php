@@ -21,8 +21,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        // Reverse your raw SQL here
-        // Example:
-        // Schema::execute("ALTER TABLE products DROP COLUMN count");
+        $sql = "DROP TABLE IF EXISTS old_orders";
+        Schema::execute($sql);
     }
 };
