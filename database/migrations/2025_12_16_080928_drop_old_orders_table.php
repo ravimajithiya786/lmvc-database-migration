@@ -9,7 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::dropIfExists('old_orders');
-
     }
 
     public function down(): void
@@ -18,6 +17,5 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
         });
-
     }
 };

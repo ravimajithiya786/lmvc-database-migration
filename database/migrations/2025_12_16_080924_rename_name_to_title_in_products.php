@@ -9,14 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Add your alterations here
+            $table->renameColumn('name','title');
         });
     }
 
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Reverse your alterations here
+            $table->renameColumn('title','name');
         });
     }
 };

@@ -9,19 +9,25 @@ return new class extends Seeder
         Seeder::truncate('products');
         Seeder::insert('products',[
             [
-                'name' => 'Book',
+                'title' => 'Book',
+                'category_id' => 1,
                 'is_active' => 0,
-                'price' => 50
+                'price' => 50,
+                'stock' => 400
             ],
             [
-                'name' => 'Pen',
+                'title' => 'Pen',
+                'category_id' => 3,
                 'is_active' => 0,
-                'price' => 10
+                'price' => 10,
+                'stock' => 500
             ],
             [
-                'name' => 'Pencil',
+                'title' => 'Pencil',
+                'category_id' => 5,
                 'is_active' => 1,
-                'price' => 5
+                'price' => 5,
+                'stock' => 600
             ],
         ]);
     }

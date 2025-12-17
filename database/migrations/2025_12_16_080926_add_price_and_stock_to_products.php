@@ -9,14 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Add your alterations here
+            $table->integer('price');
+            $table->integer('stock');
         });
     }
 
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Reverse your alterations here
+            $table->dropColumn('price');
+            $table->dropColumn('stock');
         });
     }
 };

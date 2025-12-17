@@ -17,7 +17,7 @@ class MigrateCommand extends Command
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
-        $this->migrationsPath = dirname(__DIR__, 5) . '/database/migrations/';
+        $this->migrationsPath = dirname(__DIR__, 2) . '/database/migrations/';
         parent::__construct();
     }
 
