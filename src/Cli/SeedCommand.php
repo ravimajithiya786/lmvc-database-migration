@@ -19,7 +19,7 @@ class SeedCommand extends Command
     {
         parent::__construct();
         $this->pdo = $pdo;
-        $this->seedersPath = dirname(__DIR__, 2) . '/database/seeders';
+        $this->seedersPath = dirname(__DIR__, 5) . '/database/seeders';
     }
 
     protected function configure(): void
