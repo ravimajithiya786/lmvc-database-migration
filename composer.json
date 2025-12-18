@@ -1,7 +1,7 @@
 {
     "name": "regur/lmvc-database-migration",
     "description": "A lightweight database migration system for LMVC-based PHP applications.",
-    "type": "composer-plugin",
+    "type": "library",
     "keywords": [
         "php",
         "database",
@@ -9,7 +9,7 @@
         "lmvc",
         "framework",
         "cli",
-        "composer-plugin"
+        "library"
     ],
     "homepage": "https://github.com/regur/lmvc-database-migration",
     "license": "MIT",
