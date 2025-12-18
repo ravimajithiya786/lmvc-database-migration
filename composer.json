@@ -37,9 +37,7 @@
             "Regur\\LMVC\\Framework\\Database\\": "src/Database",
             "Regur\\LMVC\\Framework\\Cli\\": "src/Cli",
             "Regur\\LMVC\\Framework\\Bin\\": "bin",
-            "Regur\\LMVC\\Framework\\Composer\\": "src/Composer",
-            "Regur\\LMVC\\Framework\\Config\\": "src/Config",
-            "Regur\\LMVC\\Framework\\UI\\": "src/UI"
+            "Regur\\LMVC\\Framework\\Composer\\": "src/Composer"
         }
     },
     "bin": [
