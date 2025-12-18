@@ -61,7 +61,7 @@ beforeAll(function () {
 //         ['php', 'bin/lmvcdb', 'migrate'],
 //         ['All migrations executed successfully', 'Migration executed:', 'No pending migrations found']
 //     );
-// });
+// })->group('migrate');
 
 // it('runs migrate with --up', function () {
 //     runMigrateTest(
@@ -69,7 +69,7 @@ beforeAll(function () {
 //         ['php', 'bin/lmvcdb', 'migrate', '--up'],
 //         ['All pending migrations executed successfully.']
 //     );
-// });
+// })->group('migrate');
 
 // it('runs migrate with --down', function () {
 //     runMigrateTest(
@@ -77,7 +77,7 @@ beforeAll(function () {
 //         ['php', 'bin/lmvcdb', 'migrate', '--down'],
 //         ['Droping last batch of migrations.', 'Rolled back last batch']
 //     );
-// });
+// })->group('migrate');
 
 // it('runs migrate with --fresh', function () {
 //     runMigrateTest(
@@ -85,7 +85,7 @@ beforeAll(function () {
 //         ['php', 'bin/lmvcdb', 'migrate', '--fresh'],
 //         ['Dropping all tables..., Migrating all tables...']
 //     );
-// });
+// })->group('migrate');
 
 it('runs migrate with --refresh', function () {
     runMigrateTest(
@@ -93,7 +93,7 @@ it('runs migrate with --refresh', function () {
         ['php', 'bin/lmvcdb', 'migrate', '--refresh'],
         ['Database all tables refreshed']
     );
-});
+})->group('migrate');
 
 /**
  * Test Suite End
@@ -101,3 +101,5 @@ it('runs migrate with --refresh', function () {
 afterAll(function () {
     Log::save("=== MIGRATE TEST SUITE ENDED ===");
 });
+
+// Command to test - php ./vendor/bin/pest --group=migrate
