@@ -1,8 +1,8 @@
-<p align="center">
-  <img src="https://www.regur.net/_next/static/media/logo.87cbe41e.svg" alt="Regur Technologies Logo" width="180">
+<p align="left">
+  <img src="https://www.regur.net/_next/static/media/logo.87cbe41e.svg" alt="Regur Technology Solutions" width="180">
 </p>
 
-# Regur Technologies - LMVC DB Migration Library
+# Regur Technology Solutions - LMVC DB Migration Library
 
 A simple database migration package for PHP applications, inspired by Laravel's Artisan.
 
