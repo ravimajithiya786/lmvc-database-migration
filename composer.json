@@ -51,5 +51,10 @@
     "support": {
         "issues": "https://github.com/ravimajithiya786/lmvc-database-migration/issues",
         "source": "https://github.com/ravimajithiya786/lmvc-database-migration"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
