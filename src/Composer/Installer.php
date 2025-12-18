@@ -37,18 +37,35 @@ class Installer implements PluginInterface, EventSubscriberInterface
         $io = $event->getIO();
         $io->write("<info>Running LMVC installer...</info>");
 
-        $command = PHP_BINARY . ' vendor/bin/lmvcdb install';
+        // Ensure vendor binaries exist
+        $lmvcdb = PHP_BINARY . ' vendor/bin/lmvcdb';
 
-        exec($command, $output, $status);
+        $commands = [
+            'install',
+            'install:ui',
+        ];
 
-        foreach ($output as $line) {
-            $io->write($line);
+        foreach ($commands as $cmd) {
+            $io->write("<info>Executing: lmvcdb {$cmd}</info>");
+
+            $command = "{$lmvcdb} {$cmd}";
+            exec($command, $output, $status);
+
+            foreach ($output as $line) {
+                $io->write($line);
+            }
+
+            if ($status !== 0) {
+                $io->writeError("<error>LMVC command '{$cmd}' failed.</error>");
+                return;
+            }
+
+            $output = []; // reset buffer
         }
 
-        if ($status !== 0) {
-            $io->writeError("<error>LMVC installer failed.</error>");
-        } else {
-            $io->write("<info>LMVC installer completed successfully.</info>");
-        }
+        $io->write("<info>LMVC installation completed successfully.</info>");
+        $io->write("<comment>You can now use:</comment>");
+        $io->write("<comment>php lmvcdb</comment>");
+        $io->write("<comment>UI available at /lmvc-migrations</comment>");
     }
 }
