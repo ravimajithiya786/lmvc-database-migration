@@ -12,11 +12,11 @@ $dotenv->load();
 
 $dbcred = [
     'host' => $_ENV['DB_HOST'],
-    'driver'=> $_ENV['DB_DRIVER'],
+    'driver'=> $_ENV['DB_DRIVER'] ?? 'mysql',
     'database' => $_ENV['DB_NAME'],
     'username' => $_ENV['DB_UNAME'],
     'password' => $_ENV['DB_PWD'],
-    'port' => $_ENV['DB_PORT']
+    'port' => $_ENV['DB_PORT'] ?? 3306
 ];
 
 Bootstrap::init($dbcred);
