@@ -3,7 +3,7 @@
 namespace Regur\LMVC\Framework\Database;
 
 use Symfony\Component\Console\Application;
-use Regur\LMVC\Framework\Cli\{InstallCommand, InstallUICommand, MakeMigrationCommand, MigrateCommand, MakeRawMigrationCommand, MakeSeederCommand, SeedCommand};
+use Regur\LMVC\Framework\Cli\{MakeMigrationCommand, MigrateCommand, MakeRawMigrationCommand, MakeSeederCommand, SeedCommand};
 use Regur\LMVC\Framework\Database\Core\{DB, Schema};
 
 class Bootstrap
@@ -29,12 +29,6 @@ class Bootstrap
 
         // Create console application
         $application = new Application();
-
-        // Register commands
-
-        // Install command 
-        $application->add(new InstallCommand());
-        $application->add(new InstallUICommand());
 
         // Migration commands
         $application->add(new MakeMigrationCommand());

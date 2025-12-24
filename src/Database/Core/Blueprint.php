@@ -183,7 +183,7 @@ class Blueprint
         return $this;
     }
 
-    public function default(mixed $value): self
+    public function default($value): self
     {
         $last = $this->getLastColumnIndex();
         if ($last === null) return $this;

@@ -6,66 +6,67 @@ use Composer\Plugin\PluginInterface;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\Composer;
 use Composer\IO\IOInterface;
+use Composer\Installer\PackageEvent;
+use Composer\DependencyResolver\Operation\UninstallOperation;
 use Composer\Script\Event;
 
 class Installer implements PluginInterface, EventSubscriberInterface
 {
-    public function activate(Composer $composer, IOInterface $io)
-    {
-        // nothing needed
-    }
-
-    public function deactivate(Composer $composer, IOInterface $io)
-    {
-        // nothing needed
-    }
-
-    public function uninstall(Composer $composer, IOInterface $io)
-    {
-        // nothing needed
-    }
+    public function activate(Composer $composer, IOInterface $io) {}
+    public function deactivate(Composer $composer, IOInterface $io) {}
+    public function uninstall(Composer $composer, IOInterface $io) {}
 
     public static function getSubscribedEvents()
     {
         return [
-            'post-autoload-dump' => 'run'
+            'post-install-cmd' => 'install',
+            'post-update-cmd'  => 'install',
+            'pre-package-uninstall' => 'remove',
         ];
     }
 
-    public static function run(Event $event)
+    public static function install(Event $event)
     {
         $io = $event->getIO();
-        $io->write("<info>Running LMVC installer...</info>");
+        $io->write('<info>Installing lmvcdb binary...</info>');
 
-        // Ensure vendor binaries exist
-        $lmvcdb = PHP_BINARY . ' vendor/bin/lmvcdb';
+        $projectRoot = getcwd();
+        $target = $projectRoot . '/lmvcdb';
+        $source = __DIR__ . '/../../bin/lmvcdb';
 
-        $commands = [
-            'install',
-            'install:ui',
-        ];
-
-        foreach ($commands as $cmd) {
-            $io->write("<info>Executing: lmvcdb {$cmd}</info>");
-
-            $command = "{$lmvcdb} {$cmd}";
-            exec($command, $output, $status);
-
-            foreach ($output as $line) {
-                $io->write($line);
-            }
-
-            if ($status !== 0) {
-                $io->writeError("<error>LMVC command '{$cmd}' failed.</error>");
-                return;
-            }
-
-            $output = []; // reset buffer
+        if (!file_exists($source)) {
+            $io->writeError('<error>lmvcdb source not found.</error>');
+            return;
         }
 
-        $io->write("<info>LMVC installation completed successfully.</info>");
-        $io->write("<comment>You can now use:</comment>");
-        $io->write("<comment>php lmvcdb</comment>");
-        $io->write("<comment>UI available at /lmvc-migrations</comment>");
+        copy($source, $target);
+        chmod($target, 0755);
+
+        $io->write('<info>lmvcdb installed.</info>');
+    }
+
+    public static function remove(PackageEvent $event)
+    {
+        $operation = $event->getOperation();
+
+        if (! $operation instanceof UninstallOperation) {
+            return;
+        }
+
+        if ($operation->getPackage()->getName() !== 'regur/lmvc-database-migration') {
+            return;
+        }
+
+        $io = $event->getIO();
+        $io->write('<info>Removing lmvcdb binary...</info>');
+
+        $target = getcwd() . '/lmvcdb';
+
+        if (file_exists($target)) {
+            unlink($target);
+            $io->write('<info>lmvcdb removed.</info>');
+        } else {
+            $io->write('<comment>lmvcdb not found.</comment>');
+        }
     }
 }
