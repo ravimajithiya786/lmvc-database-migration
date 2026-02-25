@@ -2,19 +2,13 @@
 
 namespace Regur\LMVC\Framework\Composer;
 
-use Composer\Plugin\PluginInterface;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\Composer;
-use Composer\IO\IOInterface;
 use Composer\Installer\PackageEvent;
 use Composer\DependencyResolver\Operation\UninstallOperation;
 use Composer\Script\Event;
 
-class Installer implements PluginInterface, EventSubscriberInterface
+class Installer implements EventSubscriberInterface
 {
-    public function activate(Composer $composer, IOInterface $io) {}
-    public function deactivate(Composer $composer, IOInterface $io) {}
-    public function uninstall(Composer $composer, IOInterface $io) {}
 
     public static function getSubscribedEvents()
     {
